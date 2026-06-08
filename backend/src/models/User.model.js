@@ -111,11 +111,19 @@ userSchema.virtual('fullName').get(function () {
 });
 
 // ─── Hooks ───────────────────────────────────────────────────────────────────
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password') || !this.password) return next();
-  this.password = await bcrypt.hash(this.password, parseInt(process.env.BCRYPT_ROUNDS) || 12);
-  if (!this.isNew) this.passwordChangedAt = new Date(Date.now() - 1000);
-  next();
+userSchema.pre('save', async function () {
+  if (!this.isModified('password') || !this.password) {
+    return;
+  }
+
+  this.password = await bcrypt.hash(
+    this.password,
+    parseInt(process.env.BCRYPT_ROUNDS) || 12
+  );
+
+  if (!this.isNew) {
+    this.passwordChangedAt = new Date(Date.now() - 1000);
+  }
 });
 
 // ─── Methods ─────────────────────────────────────────────────────────────────
@@ -153,9 +161,10 @@ userSchema.methods.toPublicJSON = function () {
 };
 
 // ─── Query Middleware ─────────────────────────────────────────────────────────
-userSchema.pre(/^find/, function (next) {
-  if (!this.getOptions().includeDeleted) this.where({ isDeleted: false });
-  next();
+userSchema.pre(/^find/, function () {
+  if (!this.getOptions().includeDeleted) {
+    this.where({ isDeleted: false });
+  }
 });
 
 module.exports = mongoose.model('User', userSchema);
