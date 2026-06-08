@@ -9,6 +9,7 @@
     "dev": "nodemon src/server.js",
     "seed": "node src/seeder.js",
     "userSeeder": "node src/userSeeder.js",
+    "seedAll": "node src/seedAll.js",
     "lint": "eslint src/",
     "docker:build": "docker build -t jobportal-backend .",
     "docker:up": "docker-compose up -d",
