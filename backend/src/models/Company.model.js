@@ -113,9 +113,14 @@ companySchema.pre('save', async function (next) {
   next();
 });
 
-companySchema.pre(/^find/, function (next) {
-  if (!this.getOptions().includeDeleted) this.where({ isDeleted: false });
-  next();
-});
+// companySchema.pre(/^find/, function (next) {
+//   if (!this.getOptions().includeDeleted) this.where({ isDeleted: false });
+//   next();
+// });
 
+companySchema.pre(/^find/, function () {
+  if (!this.getOptions().includeDeleted) {
+    this.where({ isDeleted: false });
+  }
+});
 module.exports = mongoose.model('Company', companySchema);

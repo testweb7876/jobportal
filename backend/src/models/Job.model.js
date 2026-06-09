@@ -168,9 +168,15 @@ jobSchema.pre('save', async function (next) {
   next();
 });
 
-jobSchema.pre(/^find/, function (next) {
-  if (!this.getOptions().includeDeleted) this.where({ isDeleted: false });
-  next();
+// jobSchema.pre(/^find/, function (next) {
+//   if (!this.getOptions().includeDeleted) this.where({ isDeleted: false });
+//   next();
+// });
+
+jobSchema.pre(/^find/, function () {
+  if (!this.getOptions().includeDeleted) {
+    this.where({ isDeleted: false });
+  }
 });
 
 module.exports = mongoose.model('Job', jobSchema);
