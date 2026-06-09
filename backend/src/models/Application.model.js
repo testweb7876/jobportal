@@ -96,9 +96,15 @@ applicationSchema.index({ createdAt: -1 });
 
 applicationSchema.plugin(mongoosePaginate);
 
-applicationSchema.pre(/^find/, function (next) {
-  if (!this.getOptions().includeDeleted) this.where({ isDeleted: false });
-  next();
+// applicationSchema.pre(/^find/, function (next) {
+//   if (!this.getOptions().includeDeleted) this.where({ isDeleted: false });
+//   next();
+// });
+
+applicationSchema.pre(/^find/, function () {
+  if (!this.getOptions().includeDeleted) {
+    this.where({ isDeleted: false });
+  }
 });
 
 module.exports = mongoose.model('Application', applicationSchema);

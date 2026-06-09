@@ -1,0 +1,40 @@
+{
+  "dependencies": {
+    "@headlessui/react": "^2.2.10",
+    "@hookform/resolvers": "^5.4.0",
+    "@reduxjs/toolkit": "^2.12.0",
+    "axios": "^1.17.0",
+    "date-fns": "^4.4.0",
+    "framer-motion": "^12.40.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-dropzone": "^15.0.0",
+    "react-hook-form": "^7.77.0",
+    "react-hot-toast": "^2.6.0",
+    "react-quill": "^2.0.0",
+    "react-redux": "^9.3.0",
+    "react-router-dom": "^6.30.4",
+    "react-select": "^5.10.2",
+    "recharts": "^3.8.1",
+    "socket.io-client": "^4.8.3",
+    "zod": "^4.4.3"
+  },
+  "name": "jobportal-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
+    "vite": "^8.0.16"
+  },
+  "type": "module"
+}

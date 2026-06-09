@@ -141,9 +141,15 @@ resumeSchema.index({ shareToken: 1 }, { sparse: true });
 
 resumeSchema.plugin(mongoosePaginate);
 
-resumeSchema.pre(/^find/, function (next) {
-  if (!this.getOptions().includeDeleted) this.where({ isDeleted: false });
-  next();
+// resumeSchema.pre(/^find/, function (next) {
+//   if (!this.getOptions().includeDeleted) this.where({ isDeleted: false });
+//   next();
+// });
+
+resumeSchema.pre(/^find/, function () {
+  if (!this.getOptions().includeDeleted) {
+    this.where({ isDeleted: false });
+  }
 });
 
 module.exports = mongoose.model('Resume', resumeSchema);
