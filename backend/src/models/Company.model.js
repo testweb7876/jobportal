@@ -105,13 +105,34 @@ companySchema.index({ createdAt: -1 });
 companySchema.plugin(mongoosePaginate);
 
 // ─── Slug ─────────────────────────────────────────────────────────────────────
-companySchema.pre('save', async function (next) {
-  if (!this.isModified('name')) return next();
-  let slug = slugify(this.name, { lower: true, strict: true });
-  const count = await mongoose.model('Company').countDocuments({ slug: new RegExp(`^${slug}`) });
-  this.slug = count ? `${slug}-${Date.now()}` : slug;
-  next();
+// companySchema.pre('save', async function (next) {
+//   if (!this.isModified('name')) return next();
+//   let slug = slugify(this.name, { lower: true, strict: true });
+//   const count = await mongoose.model('Company').countDocuments({ slug: new RegExp(`^${slug}`) });
+//   this.slug = count ? `${slug}-${Date.now()}` : slug;
+//   next();
+// });
+
+companySchema.pre('save', async function () {
+
+  if (!this.isModified('name')) return;
+
+  let slug = slugify(this.name, {
+    lower: true,
+    strict: true
+  });
+
+  const count = await mongoose
+    .model('Company')
+    .countDocuments({
+      slug: new RegExp(`^${slug}`)
+    });
+
+  this.slug = count
+    ? `${slug}-${Date.now()}`
+    : slug;
 });
+
 
 companySchema.pre(/^find/, function (next) {
   if (!this.getOptions().includeDeleted) this.where({ isDeleted: false });
