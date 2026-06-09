@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { formatDistanceToNow } from 'date-fns'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts'
-import { adminAPI } from '../../api'
+import { adminAPI, jobsAPI } from '../../api'
 import { DashboardLayout } from '../../components/layout'
 import { Button, Card, StatCard, EmptyState, Pagination, StatusBadge, Spinner, Modal, Select, ConfirmDialog } from '../../components/common'
 import { usePagination } from '../../hooks'
@@ -333,7 +333,7 @@ export const AdminJobsPage = () => {
     } catch {}
   }
 
-  const { jobsAPI } = require('../../api')
+  // const { jobsAPI } = require('../../api')
 
   return (
     <DashboardLayout role="admin" pageTitle="Manage Jobs">
