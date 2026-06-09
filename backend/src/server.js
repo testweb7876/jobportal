@@ -19,9 +19,9 @@ const swaggerUi     = require('swagger-ui-express');
 const path          = require('path');
 
 const connectDB     = require('./config/database');
-const connectRedis  = require('./config/redis');
+// const connectRedis  = require('./config/redis');
 const { initSocket } = require('./socket');
-const { initQueues } = require('./queues');
+// const { initQueues } = require('./queues');
 const { initCronJobs } = require('./cron');
 const logger        = require('./config/logger');
 const errorHandler  = require('./middleware/errorHandler');
@@ -45,7 +45,7 @@ const server = http.createServer(app);
 
 // ─── Connect DB & Cache ───────────────────────────────────────────────────────
 connectDB();
-connectRedis();
+// connectRedis();
 
 // ─── Security ─────────────────────────────────────────────────────────────────
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' }, contentSecurityPolicy: false }));
@@ -142,10 +142,10 @@ app.use(errorHandler);
 initSocket(server);
 
 // ─── Queues & Cron ───────────────────────────────────────────────────────────
-if (process.env.NODE_ENV !== 'test') {
-  initQueues();
-  if (process.env.ENABLE_CRON === 'true') initCronJobs();
-}
+// if (process.env.NODE_ENV !== 'test') {
+//   initQueues();
+//   if (process.env.ENABLE_CRON === 'true') initCronJobs();
+// }
 
 // ─── Start Server ─────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
