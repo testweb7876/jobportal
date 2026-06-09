@@ -160,13 +160,35 @@ jobSchema.virtual('isActive').get(function () {
 });
 
 // ─── Hooks ───────────────────────────────────────────────────────────────────
-jobSchema.pre('save', async function (next) {
-  if (!this.isModified('title')) return next();
-  let slug = slugify(this.title, { lower: true, strict: true });
-  const count = await mongoose.model('Job').countDocuments({ slug: new RegExp(`^${slug}`) });
-  this.slug = count ? `${slug}-${Date.now()}` : slug;
-  next();
+// jobSchema.pre('save', async function (next) {
+//   if (!this.isModified('title')) return next();
+//   let slug = slugify(this.title, { lower: true, strict: true });
+//   const count = await mongoose.model('Job').countDocuments({ slug: new RegExp(`^${slug}`) });
+//   this.slug = count ? `${slug}-${Date.now()}` : slug;
+//   next();
+// });
+
+jobSchema.pre('save', async function () {
+
+  if (!this.isModified('title')) return;
+
+  let slug = slugify(this.title, {
+    lower: true,
+    strict: true
+  });
+
+  const count = await mongoose
+    .model('Job')
+    .countDocuments({
+      slug: new RegExp(`^${slug}`)
+    });
+
+  this.slug = count
+    ? `${slug}-${Date.now()}`
+    : slug;
 });
+
+
 
 // jobSchema.pre(/^find/, function (next) {
 //   if (!this.getOptions().includeDeleted) this.where({ isDeleted: false });

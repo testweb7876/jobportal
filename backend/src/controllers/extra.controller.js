@@ -2,7 +2,7 @@
 // MESSAGE CONTROLLER
 // ═══════════════════════════════════════════════════════════
 const { Conversation, Message, Notification } = require('../models/Communication.model');
-const { AppError, asyncHandler, sendSuccess } = require('../utils/AppError');
+const { AppError, asyncHandler, sendSuccess, sendPaginated } = require('../utils/AppError');
 const { uploadToCloudinary } = require('../config/cloudinary');
 let ioRef;
 const setIO = (io) => { ioRef = io; };
@@ -392,7 +392,7 @@ const getInvoices = asyncHandler(async (req, res) => {
   sendPaginated(res, result.docs, result.totalDocs, page, 20);
 });
 
-const { sendPaginated: sp } = require('../utils/AppError');
+// const { sendPaginated: sp } = require('../utils/AppError');
 
 module.exports = {
   // Message
